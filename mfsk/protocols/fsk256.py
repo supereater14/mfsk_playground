@@ -2,7 +2,7 @@
 
 """FSK256 Experimental encoder."""
 
-from ..encoder import Encoder
+from ..encoder import Encoder as EncoderBase
 from ..iodevice.iodevice import WriterDevice
 
 
@@ -16,6 +16,6 @@ TONE_STEP = BANDWIDTH / NTONES
 TONES = [(i * TONE_STEP) + BAND_LOW for i in range(NTONES)]
 
 
-class FSK256Encoder(Encoder):
+class Encoder(EncoderBase):
     def __init__(self, output_device: WriterDevice):
         super().__init__(TONES, SYMBOL_TIME, output_device)
