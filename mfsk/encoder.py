@@ -31,7 +31,11 @@ class Encoder:
 
         while self._time < self._symbol_time:
             self._phase += self._steps[symbol]
+            while self._phase >= (2 * pi):
+                self._phase -= 2 * pi
+
             sample_chunk.append(sin(self._phase))
+
             self._time += self._step_time
         self._time -= self._symbol_time
 
