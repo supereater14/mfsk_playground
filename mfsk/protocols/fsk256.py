@@ -2,8 +2,9 @@
 
 """FSK256 Experimental encoder."""
 
+from ..decoder import Decoder as DecoderBase
 from ..encoder import Encoder as EncoderBase
-from ..iodevice.iodevice import WriterDevice
+from ..iodevice.iodevice import ReaderDevice, WriterDevice
 
 
 BAND_LOW = 300
@@ -19,3 +20,7 @@ TONES = [(i * TONE_STEP) + BAND_LOW for i in range(NTONES)]
 class Encoder(EncoderBase):
     def __init__(self, output_device: WriterDevice):
         super().__init__(TONES, SYMBOL_TIME, output_device)
+
+class Decoder(DecoderBase):
+    def __init__(self, input_device: ReaderDevice):
+        super().__init__(TONES, SYMBOL_TIME, input_device)
