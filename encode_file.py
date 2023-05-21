@@ -2,6 +2,7 @@
 
 import argparse
 import importlib
+import lzma
 
 from mfsk.iodevice.wavfile import WavWriter
 
@@ -9,6 +10,7 @@ from mfsk.iodevice.wavfile import WavWriter
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--encoder', '-e', default='fsk256')
+    parser.add_argument('--compress', '-c', action='store_true')
     parser.add_argument('input_file')
     parser.add_argument('output_file')
     args = parser.parse_args()
@@ -18,6 +20,9 @@ def main():
 
     with open(args.input_file, 'rb') as input_file:
         data = input_file.read()
+
+    if args.compress:
+        data = lzma.compress(data)
 
     output_device = WavWriter(args.output_file, samp_rate=48000)
     encoder = encoder_class(output_device)
